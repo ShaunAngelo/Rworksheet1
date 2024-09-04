@@ -18,6 +18,7 @@ length(age)
 a. Data points
 b.R code output
 
+2. Reciprocal age
 ```{r}
 age <-c(34, 28, 22, 36, 27, 18, 52, 39, 42, 29,
 35, 31, 27, 22, 37, 34, 19, 20, 57, 49, 50, 37, 46, 25, 17, 37, 42, 53, 41,
@@ -25,24 +26,38 @@ age <-c(34, 28, 22, 36, 27, 18, 52, 39, 42, 29,
 reciprocalage <- 1/age
 print(reciprocalage)
 ```
-
+3. Assign new age
 ```{r}
 age <-c(34, 28, 22, 36, 27, 18, 52, 39, 42, 29,35, 31, 27, 22, 37, 34, 19, 20, 57, 49, 50, 37, 46, 25, 17, 37, 42, 53, 41,51, 35, 24, 33, 41.)
 newage <-c (age, 0, age)
 print (newage)
 ```
+4. Sort Values
 ```{r}
 age <-c(34, 28, 22, 36, 27, 18, 52, 39, 42, 29,35, 31, 27, 22, 37, 34, 19, 20, 57, 49, 50, 37, 46, 25, 17, 37, 42, 53, 41,51, 35, 24, 33, 41.)
 sort_age <- sort(age)
 print(sort_age)
 ```
-
+5. Find Minimum and Maximum
 ```{r}
 age <-c(34, 28, 22, 36, 27, 18, 52, 39, 42, 29,35, 31, 27, 22, 37, 34, 19, 20, 57, 49, 50, 37, 46, 25, 17, 37, 42, 53, 41, 51, 35, 24, 33, 41.)
 minage <-(age)
 maxage <-(age)
 print(minage)
 print(maxage)
+```
+6. 2nd Data set
+```{r}
+data <-c(2.4, 2.8, 2.1, 2.5, 2.4, 2.2, 2.5,
+2.3, 2.5, 2.3, 2.4, 2.7)
+length(data)
+```
+7. Doubled data
+```{r}
+data <- c(2.4, 2.8, 2.1, 2.5, 2.4, 2.2, 2.5,
+2.3, 2.5, 2.3, 2.4, 2.7)
+datadoubled <-  data_*2
+print(datadoubled)
 ```
 
 
