@@ -1,0 +1,25 @@
+---
+title: "Rworksheet_delfin#2"
+author: "Shaun Angelo Delfin"
+date: "2024-09-25"
+output: html_document
+
+# 1. Create a vector using : operator
+```{r}
+# a. Sequence from -5 to 5. Write the R code and its output. Describe its output.
+sequence. <- -5:5
+print (sequence)
+
+#the output of this code is from negative five to positive five.
+
+# b. x <- 1:7. What will be the value of x?
+x <- 1:7
+print(x)
+#The value of x are numbers from one to seven.
+```
+ # 3. A factory has a census of its workers. There are 50 workers in total. The following list shows their ages:
+```{r}
+
+```
+   
+
