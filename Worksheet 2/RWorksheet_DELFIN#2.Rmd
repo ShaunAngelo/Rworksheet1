@@ -68,10 +68,158 @@ a. Modify 2nd element and change it to 0;
 x[2] <- 0
 x
 ```{r}
+x <- -3:2
+x[2] <- 0
+print(x)
+```
+Describe the output.
+-The output shows the sequence from -3 until 2, After accessing the second element, the - 2 has changed to 0.
 
+6. The following data showsthe diesel fuel purchased by Mr. Cruz.
+
+Month Jan Feb March Apr May June
+price per liter (php)52.50 57.25 60.00 65.00 74.25 54.00
+Purchase-quantity (liters) 25 30 40 50 10 45
+
+a. Create a data frame for month, price per liter (php)
+and purchase-quantity (liter). Write the R scripts and its output.
+```{r}
+month <- c("Jan", "Feb", "March", "Apr", "May", "June")
+php <- c(52.50, 57.25, 60.00, 65.00, 74.25, 54.00)
+liter <- c(25, 30, 40, 50, 10, 45)
+
+fuel_data <- data.frame(Month = month, Php = php, Liter = liter)
+print(fuel_data)
+```
+b. What is the average fuel expenditure of Mr. Cruz from
+Jan to June? Note: use 'weighted.mean(liter, purchase)'. Write the R scripts and its output.
+```{r}
+average_exp <- weighted.mean(php, liter)
+print(average_exp)
+```
+7. R has actually lots of built-in datasets. For example, the rivers data “gives the lengths (in miles) of 141 “major” rivers in North America, as compiled by the US Geological Survey”.
+
+a. Type “rivers” in your R console.
+Create a vector data with 7
+elements, containing the number of elements (length)
+in rivers, their sum (sum), mean (mean),
+median(median), variance(var), standard deviation(sd),
+minimum (min) and maximum (max).
+```
+```{r}
+data <- c(length(rivers), sum(rivers), mean(rivers), median(rivers), var(rivers), sd(rivers), min(rivers), max(rivers)
+print(data)
+```
+b. What are the results?
+
+- [1]    141.0000 (length of rivers)  83357.0000(sum of rivers) 591.1844(mean of rivers)   425.0000(median of rivers) 243908.4086 (variance of rivers)  493.8708(standard deviation of rivers) 135.0000(minimum length of rivers) 3710.0000(maximum length of rivers)
+
+8. The table below gives the 25 most powerful celebrities and their annual pay as ranked by the editions of Forbes magazine and as listed on the Forbes.com website.
+
+a. Create vectors according to the above table.
+Write the R scripts and its output.
+```{r}
+rank <- c(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25)
+celebrity <- c("Tom Cruise", "Rolling Stones", "Oprah Winfrey", "U2", "Tiger Woods", "Steven Spielberg", "Howard Stern", "50 Cent", "Cast of the Sopranos", "Dan Brown", " Bruce Springsteen", "Donald Trump", "Muhammad Ali", "Paul McCartney", "George Lucas", "Elton John", "David Letterman", "Phil Mickelson", "J.K Rowling", "Brad Pitt", "Peter Jackson", "Dr. Phil McGraw", "Jay Lenon", "Celine Dion", "Kobe Bryant")
+pay <- c(67, 90, 225, 110, 90, 332, 302, 41, 52, 88, 55, 44, 55, 40, 233, 34, 40, 47, 75, 25, 39, 45, 32, 40, 31)
+
+celebrity_data <- data.frame(Rank = rank, Celebrity = celebrity, Pay = pay)
+print(celebrity_data)
+```
+b. Modify the power ranking and pay of J.K. Rowling.
+Change power ranking to 15 and pay to 90. Write the
+R scripts and its output.
+```{r}
+rank[19] <- 15
+pay[19] <- 90
+celebrity_data <- data.frame(Rank = rank, Celebrity = celebrity, Pay = pay)
+print(celebrity_data)
+```
+
+c. Create an excel file from the table above and save it
+as csv file(PowerRanking). Import the csv file into
+the RStudio. What is the R script?
+```{r}
+write.csv(celebrity_data, "power_ranking.csv", row.names = FALSE)
+import_data <- read.csv("power_ranking.csv")
+print(import_data)
+```
+d. Access the rows 10 to 20 and save it as Ranks.RData.
+Write the R script and its output.
+```{r}
+ranks <- celebrity_data[10:20,]
+save(ranks, file = "Ranks.RData")
+print(ranks)
+
+```
+Describe its output.
+
+- The output shows the ranking and pay of top celebrities. 
+
+9. Download the Hotels-Vienna https://tinyurl.com/Hotels-Vienna
+
+a. Import the excel file into your RStudio.
+What is the Rscript?
+```{r}
+library(readxl)
+hotels_data <- read_excel("hotels-vienna.xlsx")
+print(head(hotels_data))
+```
+b. How many dimensions does the dataset have?
+What is the R script? What is its output?
+```{r}
+dimensions <- dim(hotels_data)
+print(dimensions)
 
 ```
 
+c. Select columns country, neighbourhood,
+price, stars, accomodation_type, and
+ratings. Write the R script.
+```{r}
+class(hotels_data)
+
+selection <- hotels_data[, c("country", "neighbourhood", "price", "stars", "accommodation_type", "rating")]
+print(selection)
+```
+d. Save the data as **new.RData to your RStudio. Write the
+R script.
+```{r}
+save(selection, file = "new.RData")
+```
+e. Display the first six rows and last six rows of the
+new.RData. What is the R script?
+```{r}
+load("new.RData")
+print(head(selection))
+print(tail(selection))
+```
+10. Create a list of ten (10) vegetables you ate during your lifetime. If none, just list down. 
+a. Write the R scripts and its output
+```{r}
+vegetable <- c("raddish", "tomato", "onion", "potato", "corn", "cabbge", "okra", "ampalaya", "spinach", "malunggay"))
+print(vegetables)
+```
+b. Add 2 additional vegetables after the last vegetables in the list. What is the R script and its output?
+```{r}
+vegetables <- c(vegetables, "mushroom", "peppers")
+print(vegetables)
+```
+c. Add 4 additonal vegetables after index 5. How many datapoints does your vegetable list have? What is the R script and its output?
+```{r}
+vegetables <- append(vegetables, c ("garlic", "beans", "squash", "carrot"), after = 5)
+print(vegetables)
+
+num_datapoints <- length(vegetables)
+length(vegetables)
+```
+d. Remove the vegetables in index 5, 10, and 15. How many vegetables were left? write the colors and its output.
+```{r}
+vegetables <- vegetables[ -c(5, 10, 15)]
+print(vegetables)
+
+vegetables_left <- length(vegetables)
+print(vegetables_left)
 ```
 
 
