@@ -79,4 +79,12 @@ sum(51:91)
 8.5
 ```{r}
 seq(1:1000)
+```
+9. Filter
+```{r}
+Filter(funvtion(i) { all(i %% c(3,5,7) !=0) }, seq(100))
+```
+10.Backward
+```{r}
+
 
