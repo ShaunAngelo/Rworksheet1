@@ -18,7 +18,7 @@ length(age)
 a. Data points
 b.R code output
 
-2. Reciprocal age
+2. Reciprocal Age
 ```{r}
 age <-c(34, 28, 22, 36, 27, 18, 52, 39, 42, 29,
 35, 31, 27, 22, 37, 34, 19, 20, 57, 49, 50, 37, 46, 25, 17, 37, 42, 53, 41,
@@ -59,6 +59,24 @@ data <- c(2.4, 2.8, 2.1, 2.5, 2.4, 2.2, 2.5,
 datadoubled <-  data_*2
 print(datadoubled)
 ```
-
-
+8. Sequence
++8.1
+```{r}
+seq(1:100)
+```
++8.2
+```{r}
+seq(20:60)
+```
++8.3
+```{r}
+mean(20:60)
+```
+8.4
+```{r}
+sum(51:91)
+```
+8.5
+```{r}
+seq(1:1000)
 
