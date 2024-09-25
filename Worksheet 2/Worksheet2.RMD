@@ -1,4 +1,0 @@
-----
-title: "Rworksheet_delfin#2"
-author: "Shaun Angelo Delfin"
-date: "2024-9-25"
