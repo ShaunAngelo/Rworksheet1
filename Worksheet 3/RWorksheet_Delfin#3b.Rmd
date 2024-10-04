@@ -1,0 +1,128 @@
+---
+title: "RWorksheet_Delfin#3b.Rmd"
+author: "Shaun Angelo Delfin"
+date: "2024-10-04"
+output: pdf_document
+---
+
+```{r}
+#1. Create a data frame using the table below.
+#a.
+library(dplyr)
+Respondents <- c(seq(1,20))
+Sex <- c(2,2,1,2,2,2,2,2,2,2,1,2,2,2,2,2,2,2,1,2)
+Father_Occupation <- c(1,3,3,3,1,2,3,1,1,1,3,2,1,3,3,1,3,1,2,1)
+PersonsAtHome <- c(5,7,3,8,5,9,6,7,8,4,7,5,4,7,8,8,3,11,7,6)
+SiblingsAtSchool <- c(6,4,4,1,2,1,5,3,1,2,3,2,5,5,2,1,2,5,3,2)
+TypeOfHouses <- c (1,2,3,1,1,3,3,1,2,3,2,3,2,2,3,3,3,3,3,2)
+
+data_display <- data.frame(Respondents, Sex,Father_Occupation,PersonsAtHome,SiblingsAtSchool,TypeOfHouses)
+data_display
+
+#b
+#The dataset consists of responses from 20 individuals, providing details about their gender, with 7 males and 13 females. It also includes information about their fathers' occupations (coded as 1, 2, or 3), household sizes (ranging from 3 to 11 people), school-going siblings (ranging from 1 to 6), and the type of houses they reside in (coded as 1, 2, or 3). Conducting further analysis on these variables can uncover valuable insights.
+summary(data_display)
+
+#c. No.
+
+#d.
+data1 <- subset (data_display)[1:2, 2:6, drop=FALSE]
+data1
+
+#e.
+data2 <- data_display[c(3,5), c(2,4)]
+data2
+
+#f.
+types_houses <- data_display[c(6)]
+types_houses
+
+#g.
+selected_data <- data_display %>% select(1:6)
+data3 <- selected_data[data_display$Sex == 1,]
+data3
+
+#h.
+
+female <- selected_data[data_display$SiblingsAtSchool >= 5,]
+female
+
+#2. Write a R program to create an empty data frame. Using the following codes:
+df = data.frame(Ints=integer(),
+                Doubles=double(),Characters=character(),
+                Logicals=logical(),
+                Factors=factor(),
+                stringsAsFactors=FALSE)
+print("Structure of the empty dataframe:")
+print(str(df))
+
+#3. Create a .csv file of this. Save it as HouseholdData.csv
+#a
+
+RespondentsNew<-c(1,2,3,4,5,6,7,8,9,10)
+SexNew<-c("Male", "Female", "Female", "Male", "Male", "Female", "Female", "Male", "Female", "Male")
+FathersOccupationNew<-c(1,2,3,3,1,2,2,3,1,3)
+PeAtHomeNew<-c(5,7,3,8,6,4,4,2,11,6)
+SibAtSchoolNew<-c(2,3,0,5,2,3,1,2,6,2)
+TypesofHousesNew<-c("Wood","Congrete","Congrete","Wood", "Semi-Congrete","Semi-Congrete","Wood","Semi-Congrete", "Semi-Congrete", "Congrete")
+HouseholdData<-data.frame(
+  RespondentsNew,
+  SexNew,
+  FathersOccupationNew,
+  PeAtHomeNew, 
+  SibAtSchoolNew, 
+  TypesofHousesNew
+)
+HouseholdData
+
+library(readr)
+csv_file <- "HouseholdData.csv"
+write.csv(HouseholdData, file = csv_file)
+HouseholdData <- read.csv("HouseholdData.csv")
+#4
+#b
+data_display1 <- factor(HouseholdData$SexNew, levels = c("Male" = 1, "Female" = 2))
+sex_mapping <- c("Male" = 1, "Female" = 2)
+data_display1<-as.integer(sex_mapping[HouseholdData$SexNew])
+unique(data_display1)
+unique(HouseholdData$SexNew)
+
+#c. 
+data_display2 <- factor(HouseholdData$TypesofHousesNew, levels = c("Wood" = 1, "Congrete" = 2,"Semi-Congrete" = 3))
+sex_mapping2 <- c("Wood" = 1, "Congrete" = 2,"Semi-Congrete" = 3)
+data_display2 <- as.integer(sex_mapping2[HouseholdData$TypesofHousesNew])
+unique(data_display2)
+unique(HouseholdData$TypesofHousesNew)
+
+#d. 
+data_display3 <- factor(HouseholdData$FathersOccupationNew, labels=c("Farmer" = 1, "Driver" = 2,"Others" = 3))
+sex_mapping3 <- c("Farmer" = 1, "Driver" = 2,"Others" = 3)
+data_display3 <- as.integer(sex_mapping3[HouseholdData$FathersOccupationNew])
+unique(data_display3)
+unique(HouseholdData$FathersOccupationNew)
+
+#e. 
+selected_data3 <- HouseholdData %>% select(2,3,4)
+data4 <- selected_data3[HouseholdData$FathersOccupationNew == 2, ]
+data4
+
+#f. 
+selected_data3 <- HouseholdData %>% select(2,6)
+data4 <- selected_data3[HouseholdData$SibAtSchoolNew >= 5,]
+data4
+colnames(HouseholdData) <- c("Respondents", "Sex", "Fathers Occupation", "Persons At Home", "Siblings At School", "Type Of Houses")
+
+#4. Analyzing the Graph: This bar chart, titled "Sentiment of Tweets per Day," provides a concise overview of the prevailing emotions expressed on Twitter during July 2020. The graph divides the tweets into three categories: negative, neutral, and positive.
+
+#Negative Sentiment:
+# On specific days such as July 15 and July 21, 2020, there was a noticeable increase in negative tweets, which conveyed disapproval or criticism. These spikes indicate heightened discussions or concerns.
+
+#Neutral Sentiment:
+# The neutral sentiment represents tweets that maintain an impartial and factual tone. Throughout July 2020, neutral sentiments were dominant, particularly on July 14, 15, 17, 18, and 21. These dates showcase a range of non-partisan conversations.
+
+#Positive Sentiment:
+# Tweets falling into the positive sentiment category are characterized by their enthusiastic and optimistic nature. Interestingly, positive tweets were still present on days when negative sentiments were high, such as July 14, 15, 17, 18, and 21. This suggests resilience, hope, or an optimistic perspective.
+
+#In summary, the bar graph titled "Sentiment of Tweets per Day" provides valuable insights into the emotional landscape of Twitter in July 2020. It categorizes tweets into negative, neutral, and positive sentiments, highlighting specific dates like July 15 and July 21, 2020, when negative tweets experienced significant increases, indicating intense conversations and concerns. Throughout the month, neutral tweets remained predominant, while positive tweets demonstrated resilience and optimism even during periods of high negativity.
+
+```
