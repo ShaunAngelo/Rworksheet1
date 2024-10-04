@@ -1,0 +1,135 @@
+---
+title: "Rworksheet_Delfin#3a.Rmd"
+author: "Shaun Angelo Delfin"
+date: "2024-10-04"
+output:
+  pdf_document: default
+  html_document: default
+---
+1.
+```{r}
+#a
+first_11 <- LETTERS[1:11]
+first_11
+
+#{1}"A" "B' "C" "D" "E" "F" "G" "H" "I" "J" "K"
+
+#b
+oddNumLet <- LETTERS[1:26%%2 == 1]
+oddNumLet 
+#[1] "A "C" "E" "G" "I" "K" "M" "O" "Q" "S" "U" "W" "Y"
+
+#c
+vowels <- LETTERS [c(1,5,9,15,21)]
+vowels
+#[1]"A" "E" "I" "O" "U"
+
+#d
+smallLetters <- tail(letters,5)
+smallLetters
+#[1]"v" "w" "x" "y" "z"
+
+#e
+betweenLetters <- letters[15:24]
+betweenLetters
+#[1]"o" "p" "q" "r" "s" "t" "u" "v" "w" "x"
+
+#2
+
+#a
+city<-c("Tugue-garao City", "Manila", "Iloilo City", "Tacloban", "Samal Island", "Davao City")
+city
+#[1] "Tugue-garao City" "Manila" "Iloilo City" "Tacloban" "Samal Island"
+#[6] "Davao City"
+
+#b
+temp <- c(42,39,34,34,30,27)
+temp
+#[1] 42 39 34 34 30 27
+
+citytemp<-data.frame(city,temp)
+citytemp
+#         city temp
+#1 Tugue-garao City   42
+#2           Manila   39
+#3      Iloilo City   34
+#4         Tacloban   34
+#5     Samal Island   30
+#6       Davao City   27
+
+#d
+names(citytemp) <-c ("City","Temperature")
+citytemp
+  #City Temperature
+  #1 Tugue-garao City          42
+  #2           Manila          39
+  #3      Iloilo City          34
+  #4         Tacloban          34
+  #5     Samal Island          30
+  #6       Davao City          27
+
+#e
+str(citytemp)
+#'data.frame':	6 obs. of  2 variables:
+ # $ City       : chr  "Tugue-garao City" "Manila" "Iloilo City" "Tacloban" ...
+#$ Temperature: num  42 39 34 34 30 27
+
+#f
+row_3 <- citytemp[3,]
+row_4 <- citytemp[4,]
+print(row_3)
+print(row_4)
+#           City    Temperature
+#3   Iloilo City    34
+#           City    Temperature
+#4      Tacloban    34
+
+#g
+index_max_temp <- which.max(citytemp$Temperature)
+index_min_temp <- which.min(citytemp$Temperature)
+
+city_highest_temp <- citytemp$City[index_max_temp]
+city_lowest_temp <- citytemp$City[index_min_temp]
+
+print(paste("City with highest temperature:", city_highest_temp))
+print(paste("City with lowest temperature:", city_lowest_temp))
+
+#[1] "City with highest temperature: Tugue-garao City"
+#[1] "City with lowest temperature: Davao City"
+
+
+#2 Using Matrix 
+
+mat <- matrix(c(1:8, 11:14), nrow = 3, ncol = 4, byrow = TRUE)
+print(mat)
+#[,1] [,2] [,3] [,4]
+#[1,]    1    2    3    4
+#[2,]    5    6    7    8
+#[3,]   11   12   13   14
+result <- mat * 2
+print(result)
+#[,1] [,2] [,3] [,4]
+#[1,]    2    4    6    8
+#[2,]   10   12   14   16
+#[3,]   22   24   26   28
+
+row_2 <- mat[2, ]
+print(row_2)
+#[1] 5 6 7 8
+
+subset <- mat[1:2, 3:4]
+print(subset)
+#[,1] [,2]
+#[1,]    3    4
+#[2,]    7    8
+
+subset <- mat[3, 2:3]
+print(subset)
+#[1] 12 13
+
+```
+
+
+```{r}
+```
+
