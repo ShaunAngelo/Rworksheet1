@@ -1,0 +1,59 @@
+---
+title: "Rworksheet_Delfin#4a"
+author: "Shaun Angelo Delfin"
+date: "2024-10-16"
+output: html_document
+---
+
+```{r}
+a_shoe_size <- c(6.5, 9, 8.5, 8.5, 10.5, 7, 9.5, 9, 13, 7.5, 10.5, 8.5, 12, 10.5)
+a_shoe_size
+a_height <- c(66, 68, 64.5, 65, 70, 64, 70, 71, 72, 64, 74.5, 67, 71, 71)
+a_height
+a_gender <- c("F", "F", "F", "F", "M", "F", "F", "F", "M", "F", "M", "F", "M", "M")
+a_gender
+
+houseHold_data <- data.frame(a_shoe_size,a_height,a_gender)
+houseHold_data
+library(readr)
+csv_file <-"HouseHoldData.csv"
+write.csv(houseHold_data, file = csv_file)
+houseHold_data <- read.csv("HouseHoldData.csv")
+houseHold_data
+
+
+
+df1 <- data.frame(a_shoe_size,a_height,a_gender)
+print(df1)
+b_shoe_size <- c(13, 11.5, 8.5, 5, 5, 10, 6.5, 7.5, 8.5, 10.5, 8.5, 11, 9, 13)
+b_height <- c(77, 72, 59, 62, 72, 66, 64, 67, 73, 69, 72, 70, 69, 70)
+b_gender <- c("M", "M", "F", "F", "M", "F", "F", "M", "M", "F", "M", "M", "M", "M")
+df2 <- data.frame(b_shoe_size,b_height,b_gender)
+print(df2)
+combined_df <- cbind(df1,df2)
+print(combined_df)
+males_df1 <- subset(df1, a_gender == "M")
+females_df1 <- subset(df1, a_gender == "F")
+males_df2 <- subset(df2, b_gender == "M")
+females_df2 <- subset(df2, b_gender == "F")
+print("Males in df1:")
+print(males_df1)
+print("Females in df1:")
+print(females_df1)
+print("Males in df2:")
+print(males_df2)
+print("Females in df2:")
+print(females_df2)
+
+
+mean_shoe_size_df1 <- mean(df1$a_shoe_size)
+mean_shoe_size_df1 
+mean_height_df1 <- mean(df1$a_height)
+mean_height_df1
+
+mean_shoe_size_df2 <- mean(df2$b_shoe_size)
+mean_shoe_size_df2
+mean_height_df2 <- mean(df2$b_height)
+mean_height_df2
+```
+
