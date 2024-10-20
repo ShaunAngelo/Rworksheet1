@@ -86,5 +86,70 @@ Filter(funvtion(i) { all(i %% c(3,5,7) !=0) }, seq(100))
 ```
 10.Backward
 ```{r}
+```
+
+11. 11. List all the natural numbers below 25 that are multiples of 3 or 5.
+Find the sum of these multiples.
+
+a. How many data points from 10 to 11?
+
+ 3 + 5 + 6 + 9 + 10 + 12 + 15 + 18 + 20 + 21 + 24 = 143.
+
+b. Write the R code and its output from 10 and 11.
+
+```{r}
+multiples <- c(3, 5, 6, 9, 10, 12, 15, 18, 20, 21, 24)
+sum_multiples <- sum(multiples)
+print(paste("Sum of multiples:", sum_multiples))
+seq1 <- 10:11
+```
+
+12. Statements can be grouped together using braces ‘{’ and ‘}’. A group of statements
+is sometimes called a block. Single statements are evaluated when a new line is typed
+at the end of the syntactically complete statement. Blocks are not evaluated until a
+new line is entered after the closing brace.
+Enter this statement:
+
+x <- {0 + x + 5 + }
+
+Describe the output.
+
+13. *Set up a vector named score, consisting of 72, 86, 92, 63, 88, 89, 91, 92, 75,
+75 and 77. To access individual elements of an atomic vector, one generally uses the
+x[i] construction.
+```{r}
+score <- c(72, 86, 92, 63, 88, 89, 91, 92, 75, 75, 77)
+```
+
+Find x[2] and x[3]. Write the R code and its output.
+```{r}
+x2 <- score[2]
+x3 <- score[3]
+print(paste("x[2] =", x2))
+print(paste("x[3] =", x3))
+```
+
+14. *Create a vector a = c(1,2,NA,4,NA,6,7).
+a. Change the NA to 999 using the codes print(a,na.print="-999").
+```{r}
+{r}
+a <- c(1, 2, NA, 4, NA, 6, 7)
+print(a)
+print(a, na.print="-999")
+```
 
 
+15. A special type of function calls can appear on the left hand side of the assignment
+operator as in > class(x) <- "foo".
+Follow the codes below:
+name = readline(prompt="Input your name: ")
+age = readline(prompt="Input your age: ")
+print(paste("My name is",name, "and I am",age ,"years old."))
+print(R.version.string)
+What is the output of the above code?
+```{r}
+name = readline(prompt="Input your name: ")
+age = readline(prompt="Input your age: ")
+print(paste("My name is",name, "and I am",age ,"years old."))
+print(R.version.string)
+```
