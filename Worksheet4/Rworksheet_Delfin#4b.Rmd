@@ -1,0 +1,32 @@
+---
+title: "Rworksheet_Delfin#4b.Rmd"
+author: "Shaun Angelo Delfin"
+date: "2024-10-26"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+
+vectorA <- c(1, 2, 3, 4, 5)
+matrixA <- matrix(0, nrow = 5, ncol = 5)
+matrixA
+for (i in 1:5) {
+for (j in 1:5) {
+matrixA[i, j] <- abs(vectorA[i] - vectorA[j])
+}
+}
+matrixA
+
+rightTriangle <- c()
+for(i in 1:5) {
+for(j in 1:i+1) {
+rightTriangle = c(rightTriangle, "*")
+}
+  print(rightTriangle)
+  rightTriangle <- c()
+}
+n <- as.integer(readline(prompt = "Enter the number of terms: "))
+a <- 0
+b <- 1
