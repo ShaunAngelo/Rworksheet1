@@ -1,0 +1,208 @@
+---
+title: "RWorksheet#5"
+author: "Barrientos, Delfin, Infiesto"
+date: "2024-11-06"
+output: pdf_document
+---
+#Extracting TV Shows Reviews
+
+#1. Each group needs to extract the top 50 tv shows in Imdb.com. It will include the rank, the title of the tv show, tv rating, the number of people who voted, the number of episodes, the year it was released.
+#It will also include the number of user reviews and the number of critic reviews, as well as the popularity rating for each tv shows.
+
+# Load required libraries
+library(dplyr)
+library(rvest)
+library(stringr)
+
+url <- "https://www.imdb.com/chart/toptv"
+page <- read_html(url)
+
+ranked_titles <- page %>%
+  html_nodes(".titleColumn a") %>%
+  html_text()
+```
+
+
+```{r}
+title_data <- as.data.frame(ranked_titles[3:27], stringsAsFactors = FALSE)
+colnames(title_data) <- "ranked_titles"
+```
+
+
+```{r}
+split_titles <- strsplit(as.character(title_data$ranked_titles), "\\.", fixed = FALSE)
+```
+
+```{r}
+
+```
+
+```{r}
+# Ensure the split result has two columns for rank and title
+title_df <- do.call(rbind, split_titles)
+```
+
+
+```{r}
+# Check if the split result has 2 columns
+if (!is.null(title_df) && ncol(title_df) == 2) {
+  colnames(title_df) <- c("rank", "title")
+} else {
+  title_df <- data.frame(rank = NA, title = NA)
+}
+
+```
+
+
+```{r}
+title_df$title <- trimws(title_df$title)
+```
+
+```{r}
+write.csv(title_df, file = "movie_titles.csv", row.names=FALSE)
+```
+#2. From the 50 tv shows, select at least 5 tv shows to scrape 20 user reviews that will include the reviewer’s
+name, date of reviewed, user rating, title of the review, the numbers for “is helpful” and “is not helpful”,
+and text reviews.
+```{r}
+tv_show_links <- ("https://www.imdb.com/title/")
+                        c("https://www.imdb.com/title/tt0903747",
+                          "https://www.imdb.com/title/tt5491994",
+                          "https://www.imdb.com/title/tt0795176",
+                          "https://www.imdb.com/title/tt0185906",
+                          "https://www.imdb.com/title/tt7366338")
+```
+
+
+```{r}
+scrape_reviews <- function(link, desired_rows = 20) {
+  page <- read_html(link)
+  # Extract review details
+  name <- page %>% html_nodes(".ipc-link.ipc-link--base") %>% html_text()
+  year <- page %>% html_nodes(".ipc-inline-list__item.review-date") %>% html_text()
+  rating <- page %>% html_nodes(".ipc-rating-star--rating") %>% html_text()
+  title <- page %>% html_nodes(".ipc-title__text") %>% html_text()
+  helpful <- page %>% html_nodes(".ipc-voting__label__count.ipc-voting__label__count--up") %>% html_text()
+  unhelpful <- page %>% html_nodes(".ipc-voting__label__count.ipc-voting__label__count--down") %>% html_text()
+  text <- page %>% html_nodes(".ipc-html-content-inner-div") %>% html_text()
+
+  # Adjust lengths of vectors by padding shorter ones with NA
+  name <- c(name, rep(NA, max(0, desired_rows - length(name))))
+  year <- c(year, rep(NA, max(0, desired_rows - length(year))))
+  rating <- c(rating, rep(NA, max(0, desired_rows - length(rating))))
+  title <- c(title, rep(NA, max(0, desired_rows - length(title))))
+  helpful <- c(helpful, rep(NA, max(0, desired_rows - length(helpful))))
+  unhelpful <- c(unhelpful, rep(NA, max(0, desired_rows - length(unhelpful))))
+  text <- c(text, rep(NA, max(0, desired_rows - length(text))))
+  
+  
+  #cleaning the reviewers named "Permalink"
+  name <- gsub("Permalink", "ANONYMOUS", name)
+  name <- str_trim(name) 
+  
+  
+  # Adjust lengths of vectors by padding shorter ones with NA
+  name <- c(name, rep(NA, max(0, desired_rows - length(name))))
+  year <- c(year, rep(NA, max(0, desired_rows - length(year))))
+  rating <- c(rating, rep(NA, max(0, desired_rows - length(rating))))
+  title <- c(title, rep(NA, max(0, desired_rows - length(title))))
+  helpful <- c(helpful, rep(NA, max(0, desired_rows - length(helpful))))
+  unhelpful <- c(unhelpful, rep(NA, max(0, desired_rows - length(unhelpful))))
+  text <- c(text, rep(NA, max(0, desired_rows - length(text))))
+  
+  
+  # Truncate vectors if they exceed the desired number of rows
+  name <- name[1:desired_rows]
+  year <- year[1:desired_rows]
+  rating <- rating[1:desired_rows]
+  title <- title[1:desired_rows]
+  helpful <- helpful[1:desired_rows]
+  unhelpful <- unhelpful[1:desired_rows]
+  text <- text[1:desired_rows]
+  
+  # Create a data frame
+  reviews <- data.frame(
+    name = name,
+    year = year,
+    rating = rating,
+    title = title,
+    helpful = helpful,
+    unhelpful = unhelpful,
+    text = text,
+    stringsAsFactors = FALSE
+    
+  )
+  
+  return(reviews)
+}
+
+
+tv_show_links <- ("https://www.imdb.com/title/") 
+                        c("https://www.imdb.com/title/tt0903747",
+                          "https://www.imdb.com/title/tt5491994",
+                          "https://www.imdb.com/title/tt0795176",
+                          "https://www.imdb.com/title/tt0185906",
+                          "https://www.imdb.com/title/tt7366338"
+                          )
+
+all_reviews <- lapply(tv_show_links, scrape_reviews, desired_rows = 20)
+
+
+combined_reviews <- do.call(rbind, all_reviews)
+print(combined_reviews)
+
+```
+
+```{r}
+write.csv(combined_reviews, file = "movie_reviews.csv")
+```
+
+```{r}
+all_reviews <- lapply(tv_show_links, function(link) scrape_reviews(link, 20))
+```
+
+```{r}
+final_reviews <- bind_rows(all_reviews, .id = "tv_show_id")
+```
+
+```{r}
+final_reviews <- final_reviews %>%
+  mutate(tv_show_title = title_df$title[as.integer(tv_show_id)], 
+         rank = title_df$rank[as.integer(tv_show_id)])
+```
+
+```{r}
+final_reviews <- final_reviews %>%
+  mutate(tv_show_title = title_df$title[as.integer(tv_show_id)], 
+         rank = title_df$rank[as.integer(tv_show_id)])
+```
+
+```{r}
+ #Remove specified columns
+final_reviews <- final_reviews %>%
+  select(-helpful, -unhelpful, -tv_show_title, -rank)
+
+```
+
+```{r}
+threshold <- 0.5
+reviews<- data.frame(Review = reviews, Helpfulness = helpful_scores)
+
+reviews <- reviews %>%
+  mutate(Classification = ifelse(Helpfulness >= threshold, "Helpful", "Unhelpful"))
+```
+
+
+
+```{r}
+print(final_reviews)
+```
+
+```{r}
+#save as CSV
+write.csv(final_reviews, file = "movie_reviews_final.csv")
+```
+
+
+```
+
